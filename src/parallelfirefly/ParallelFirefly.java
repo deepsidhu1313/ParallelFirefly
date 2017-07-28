@@ -16,6 +16,8 @@
  */
 package parallelfirefly;
 
+import parallelfirefly.datastructure.Firefly;
+
 /**
  *
  * @author nika
@@ -27,6 +29,8 @@ public class ParallelFirefly {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        Firefly<Double> firefly= new Firefly<>();
+        
     }
     
 }

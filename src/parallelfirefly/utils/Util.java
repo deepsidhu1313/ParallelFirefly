@@ -16,6 +16,11 @@
  */
 package parallelfirefly.utils;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import parallelfirefly.datastructure.Firefly;
 
 /**
@@ -24,16 +29,18 @@ import parallelfirefly.datastructure.Firefly;
  */
 public class Util {
 
-    public static Firefly<Integer> encodeToBinary(Firefly firefly, double thresholdForZero) {
-        Firefly<Integer> encodedFirefly = new Firefly<>();
-        for (int i = 0; i < firefly.length(); i++) {
-            Object object = firefly.get(i);
-            if ((double) object <= thresholdForZero) {
-                encodedFirefly.add(0);
-            } else {
-                encodedFirefly.add(1);
+    public static String readFile(String location) {
+        StringBuilder sb = new StringBuilder();
+        try (BufferedReader br = new BufferedReader(new FileReader(location))) {
+            String line = br.readLine();
+            while (line != null) {
+                sb.append(line);
+                sb.append("\n");
+                line = br.readLine();
             }
+        } catch (IOException ex) {
+            Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return encodedFirefly;
+        return sb.toString();
     }
 }
