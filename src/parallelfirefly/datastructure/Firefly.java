@@ -40,8 +40,7 @@ public class Firefly<T extends Number> extends ArrayList implements Serializable
             return numVal;
         }
     }
-    
-    
+
     String name = "FireFly";
 
     public Firefly() {
@@ -64,11 +63,9 @@ public class Firefly<T extends Number> extends ArrayList implements Serializable
         this.name = name;
     }
 
-    
-    
     /**
      * @param name of the firefly
-     * @param elements 
+     * @param elements
      */
     public Firefly(String name, T... elements) {
         this.name = name;
@@ -79,11 +76,11 @@ public class Firefly<T extends Number> extends ArrayList implements Serializable
         return this.size();
     }
 
-    
-    /***
-     * 
+    /**
+     * *
+     *
      * @param other from which to compute distance
-     * @return  distance
+     * @return distance
      */
     public double computeCartesianDistance(Firefly other) {
         double distance = 0;
@@ -92,10 +89,39 @@ public class Firefly<T extends Number> extends ArrayList implements Serializable
             return Double.MIN_VALUE;
         }
         for (int i = 0; i < other.length(); i++) {
-            T get = (T) this.get(i);
-            T get2 = (T) other.get(i);
-            double result = get2.doubleValue() - get.doubleValue();
-            distance += Math.sqrt(result * result);
+            if (i < other.length() - 1) {
+                T get = (T) this.get(i);
+                T get2 = (T) other.get(i);
+                double result = get2.doubleValue() - get.doubleValue();
+                distance += Math.sqrt(result * result);
+            } else {
+
+            }
+        }
+        return distance;
+    }
+
+    /**
+     * *
+     *
+     * @param other from which to compute distance
+     * @return distance
+     */
+    public Firefly<Double> computeCartesianDistanceofEachAttrib(Firefly other) {
+        Firefly<Double> distance = new Firefly<>("Distance{" + this.name + ", " + other.name + "}");
+        if (other.length() != this.length()) {
+            System.err.println("Length Not Same!! Cannot Compute Cartesian Distance between FireFlies [" + this.name + ", " + other.name + "]");
+            return null;
+        }
+        for (int i = 0; i < other.length(); i++) {
+            if (i < other.length() - 1) {
+                T get = (T) this.get(i);
+                T get2 = (T) other.get(i);
+                double result = get2.doubleValue() - get.doubleValue();
+                distance.add(Math.sqrt(result * result));
+            } else {
+                distance.add(Firefly.HEALTH_STATUS.PD);
+            }
         }
         return distance;
     }
@@ -120,4 +146,17 @@ public class Firefly<T extends Number> extends ArrayList implements Serializable
         }
         return encodedFirefly;
     }
+
+    @Override
+    public String toString() {
+        return this.getName() + " - " + super.toString(); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    double W_0= 0.97,gamma=1.0;
+        ///
+       void Calc(){
+           Math.exp(-gamma);
+       }
+        
+
 }
